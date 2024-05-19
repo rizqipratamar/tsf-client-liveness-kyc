@@ -277,11 +277,11 @@ export default function Home() {
   };
 
   return (
-    <div className="w-screen h-dvh">
+    <div className="w-screen h-dvh flex items-center justify-center relative">
       <Head>
         <title>Verifikasi Liveness</title>
       </Head>
-      <main className="flex justify-center">
+      <main className="">
         {isLoading && (
           <span className="loading loading-bars loading-lg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></span>
         )}
@@ -320,21 +320,15 @@ export default function Home() {
           </div>
         )}
 
-        <video
-          ref={videoRef}
-          width={640}
-          height={480}
-          autoPlay
-          playsInline
-          className="max-w-full h-[480px] object-contain"
-        />
-        <canvas
-          ref={canvasRef}
-          width={640}
-          height={480}
-          style={{ position: "absolute", top: 0 }}
-          className="max-w-full h-[480px] object-contain"
-        />
+        <div class="relative w-full max-w-[640px] h-auto">
+          <video ref={videoRef} autoPlay playsInline class="w-full h-auto" />
+          <canvas
+            ref={canvasRef}
+            width={640}
+            height={480}
+            class="absolute top-0 left-0 w-full h-auto z-10"
+          />
+        </div>
       </main>
     </div>
   );
