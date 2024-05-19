@@ -148,37 +148,37 @@ export default function Home() {
         canvasCtx,
         landmarks,
         facemesh.FACEMESH_RIGHT_EYE,
-        { color: "#FF3030", lineWidth: 5 }
+        { color: "#FF3030", lineWidth: 1 }
       );
       drawingUtils.drawConnectors(
         canvasCtx,
         landmarks,
         facemesh.FACEMESH_RIGHT_EYEBROW,
-        { color: "#FF3030", lineWidth: 5 }
+        { color: "#FF3030", lineWidth: 1 }
       );
       drawingUtils.drawConnectors(
         canvasCtx,
         landmarks,
         facemesh.FACEMESH_LEFT_EYE,
-        { color: "#30FF30", lineWidth: 5 }
+        { color: "#30FF30", lineWidth: 1 }
       );
       drawingUtils.drawConnectors(
         canvasCtx,
         landmarks,
         facemesh.FACEMESH_LEFT_EYEBROW,
-        { color: "#30FF30", lineWidth: 5 }
+        { color: "#30FF30", lineWidth: 1 }
       );
       drawingUtils.drawConnectors(
         canvasCtx,
         landmarks,
         facemesh.FACEMESH_FACE_OVAL,
-        { color: "#E0E0E0", lineWidth: 5 }
+        { color: "#E0E0E0", lineWidth: 1 }
       );
       drawingUtils.drawConnectors(
         canvasCtx,
         landmarks,
         facemesh.FACEMESH_LIPS,
-        { color: "#E0E0E0", lineWidth: 5 }
+        { color: "#E0E0E0", lineWidth: 1 }
       );
 
       canvasCtx.restore();
@@ -322,18 +322,14 @@ export default function Home() {
 
         <video
           ref={videoRef}
-          width={640}
-          height={480}
           autoPlay
           playsInline
-          className="w-full h-dvh object-contain"
+          className="w-full h-dvh object-cover"
         />
         <canvas
           ref={canvasRef}
-          width={640}
-          height={480}
           style={{ position: "absolute", top: 0 }}
-          className="w-full h-dvh object-contain"
+          className="w-full h-dvh object-cover"
         />
       </main>
     </div>
