@@ -1,68 +1,65 @@
-# face-api-client-kyc
+# TSF Client Liveness KYC
 
-This project explores the use of face-api.js for liveness detection in KYC (Know Your Customer) processes, running directly on the client-side to reduce server costs.
+This demo explores using MediaPipe Facemesh for liveness verification during the KYC (Know Your Customer) process. It's designed to be implemented as a webview within a mobile application, ensuring a real person is present during registration without bloating the app's size.
 
-## Project Goals
+## How it Works
 
-- **Reduce KYC Verification Failure Rates:** Improve the accuracy of initial KYC verification by using face liveness detection to identify real faces, reducing the number of failed attempts due to blurry images, incorrect angles, or spoofing attempts.
-- **Minimize Server Costs:** Shift initial AI detection to the client-side using face-api.js, reducing the load on the server and potentially lowering infrastructure costs.
+- **Face Detection:** The app uses MediaPipe Facemesh to detect the user's face.
+- **Liveness Instructions:** The user is guided through randomized actions like opening their mouth, blinking, and smiling.
+- **Verification:** The app verifies if the actions are completed correctly, confirming a live person.
+- **Real-Time Display:** A live video feed of the user with overlaid face landmarks is displayed.
 
-## Technologies Used
+## Why a Webview?
 
-- **Next.js 14:** Framework for building React applications with server-side rendering and other performance optimizations.
-- **Tailwind CSS:** Utility-first CSS framework for rapid UI development.
-- **DaisyUI:** Component library built on top of Tailwind CSS for common UI elements.
-- **face-api.js:** JavaScript API for face detection and recognition running entirely in the browser.
-
-## Project Features
-
-- **Liveness Detection:**
-  - Detects random instructions like mouth opening, blinking, and nodding.
-  - Provides visual feedback to the user with a flashing alert and step-by-step instructions.
-  - Verifies liveness if all instructions are completed successfully.
-- **Client-Side AI:**
-  - Runs face detection and liveness checks directly in the browser using face-api.js.
-  - Reduces the need for server-side processing, lowering server load and costs.
-- **Loading State:** Displays a loading indicator while models and video/canvas elements are being loaded.
-- **Camera Permission Handling:** Prompts the user for camera access and displays appropriate messages based on permission status.
+- **Minimizes App Size:** Integrating liveness detection directly into the app would significantly increase its size. A webview loads this functionality only when needed.
+- **KYC Focused:** Liveness checks are usually required only during initial user registration (KYC), making a webview deployment more efficient.
 
 ## Getting Started
 
-1. **Clone the repository:**
+### Prerequisites
 
-   ```bash
-   git clone https://github.com/rizqipratamar/face-api-client-kyc.git
-   cd face-api-client-kyc
-   ```
+- **Node.js and npm (or yarn)**
+- **Modern web browser with MediaPipe support (Chrome, Firefox)**
 
-2. **Install dependencies:**
+### Installation
 
-   ```bash
-   npm install
-   ```
+1. Clone the repository: `git clone https://github.com/your-username/tsf-client-liveness-kyc.git`
+2. Install dependencies: `cd tsf-client-liveness-kyc && npm install`
 
-3. **Download face-api.js models:**
+### Running the Demo
 
-   - Download the necessary face-api.js models (tiny_face_detector, face_landmark_68) from the official repository: [https://github.com/justadudewhohacks/face-api.js/tree/master/weights](https://github.com/justadudewhohacks/face-api.js/tree/master/weights)
-   - Place the models in the `public/models` directory of your project.
+1. Start the development server: `npm run dev`
+2. Open your web browser and visit: `http://localhost:3000`
 
-4. **Start the development server:**
+## Using the Demo
 
-   ```bash
-   npm run dev
-   ```
+1. Allow camera access to your browser.
+2. The demo will begin detecting your face.
+3. Follow the on-screen instructions (open your mouth, blink, smile).
+4. The app will verify if you've completed the actions accurately.
+5. A "Verification Successful!" message appears upon successful verification.
 
-5. **Open the app in your browser:**
-   ```
-   http://localhost:3000
-   ```
+## Libraries Used
 
-## Future Improvements
+This project utilizes the following libraries:
 
-- **Enhanced Accuracy:** Explore more advanced liveness detection techniques, potentially using 3D depth information or heart rate detection.
-- **Integration with KYC Backend:** Connect the client-side liveness check to a backend KYC system for further verification and processing.
-- **User Experience:** Improve the user interface and provide more intuitive guidance during the liveness check process.
+- **MediaPipe:** For face landmark detection, camera utilities, and drawing utilities.
+- **Next.js:** A React framework for building the web application.
+- **React:** A JavaScript library for building user interfaces.
+- **Tailwind CSS:** A utility-first CSS framework for styling.
+- **DaisyUI:** A component library built on top of Tailwind CSS.
 
-## Contributing
+## Customization
 
-Contributions are welcome! Feel free to open issues or pull requests.
+- Liveness instructions are customizable in the `pages/index.js` file.
+- Adjust threshold parameters for blink, mouth open, and smile detection within the same file.
+
+## Important Notes
+
+- This demo is for demonstration purposes and may not offer highly accurate liveness verification.
+- Accuracy is affected by lighting conditions and camera quality.
+- Experiment with thresholds and add more liveness actions to improve accuracy.
+
+## License
+
+This project is licensed under the MIT License.
