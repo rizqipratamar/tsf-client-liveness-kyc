@@ -4,6 +4,7 @@ import Head from "next/head";
 import * as facemesh from "@mediapipe/face_mesh";
 import * as cam from "@mediapipe/camera_utils";
 import * as drawingUtils from "@mediapipe/drawing_utils";
+import { useRouter } from "next/router";
 
 const instructions = [
   { text: "Buka Mulut Anda", type: "mouth", duration: 2 }, // Duration set to 2 seconds
@@ -22,7 +23,7 @@ export default function Home() {
   const [isVerified, setIsVerified] = useState(false);
   const [actionCounts, setActionCounts] = useState({ mouth: 0, blink: 0 });
   const [mouthOpenStartTime, setMouthOpenStartTime] = useState(null);
-
+  const router = useRouter();
   // Thresholds
   const EAR_THRESHOLD = 0.25;
   const MAR_THRESHOLD = 0.5;
@@ -272,8 +273,7 @@ export default function Home() {
   }
 
   const handleReset = () => {
-    setIsVerified(false);
-    generateRandomInstructions();
+    router.reload();
   };
 
   return (
