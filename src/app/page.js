@@ -320,13 +320,18 @@ export default function Home() {
           </div>
         )}
 
-        <video ref={videoRef} autoPlay playsInline className="w-full h-dvh" />
+        <video
+          ref={videoRef}
+          autoPlay
+          playsInline
+          className="w-full h-dvh object-contain "
+        />
         <canvas
           ref={canvasRef}
           width={640}
           height={480}
           style={{ position: "absolute", top: 0 }}
-          className="absolute top-0 w-screen h-dvh object-contain "
+          className="absolute top-0 w-full h-dvh object-contain "
         />
       </main>
     </div>
