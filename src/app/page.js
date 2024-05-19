@@ -4,7 +4,6 @@ import Head from "next/head";
 import * as facemesh from "@mediapipe/face_mesh";
 import * as cam from "@mediapipe/camera_utils";
 import * as drawingUtils from "@mediapipe/drawing_utils";
-import { useRouter } from "next/router";
 
 const instructions = [
   { text: "Buka Mulut Anda", type: "mouth", duration: 2 }, // Duration set to 2 seconds
@@ -60,8 +59,6 @@ export default function Home() {
         onFrame: async () => {
           await faceMesh.send({ image: videoRef.current });
         },
-        width: 500,
-        height: 500,
       });
       camera.start();
     }
