@@ -25,7 +25,7 @@ export default function Home() {
   const [mouthOpenStartTime, setMouthOpenStartTime] = useState(null);
 
   // Thresholds
-  const EAR_THRESHOLD = 0.4;
+  const EAR_THRESHOLD = 0.125;
   const MAR_THRESHOLD = 0.35;
 
   useEffect(() => {
