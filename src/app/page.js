@@ -59,8 +59,8 @@ export default function Home() {
         onFrame: async () => {
           await faceMesh.send({ image: videoRef.current });
         },
-        width: 640,
-        height: 480,
+        width: 500,
+        height: 500,
       });
       camera.start();
     }
@@ -148,37 +148,37 @@ export default function Home() {
         canvasCtx,
         landmarks,
         facemesh.FACEMESH_RIGHT_EYE,
-        { color: "#FF3030", lineWidth: 5 }
+        { color: "#FF3030", lineWidth: 1 }
       );
       drawingUtils.drawConnectors(
         canvasCtx,
         landmarks,
         facemesh.FACEMESH_RIGHT_EYEBROW,
-        { color: "#FF3030", lineWidth: 5 }
+        { color: "#FF3030", lineWidth: 1 }
       );
       drawingUtils.drawConnectors(
         canvasCtx,
         landmarks,
         facemesh.FACEMESH_LEFT_EYE,
-        { color: "#30FF30", lineWidth: 5 }
+        { color: "#30FF30", lineWidth: 1 }
       );
       drawingUtils.drawConnectors(
         canvasCtx,
         landmarks,
         facemesh.FACEMESH_LEFT_EYEBROW,
-        { color: "#30FF30", lineWidth: 5 }
+        { color: "#30FF30", lineWidth: 1 }
       );
       drawingUtils.drawConnectors(
         canvasCtx,
         landmarks,
         facemesh.FACEMESH_FACE_OVAL,
-        { color: "#E0E0E0", lineWidth: 5 }
+        { color: "#E0E0E0", lineWidth: 1 }
       );
       drawingUtils.drawConnectors(
         canvasCtx,
         landmarks,
         facemesh.FACEMESH_LIPS,
-        { color: "#E0E0E0", lineWidth: 5 }
+        { color: "#E0E0E0", lineWidth: 1 }
       );
 
       canvasCtx.restore();
@@ -279,6 +279,22 @@ export default function Home() {
   return (
     <div className="w-screen h-dvh flex items-center justify-center relative">
       <Head>
+        <meta charset="UTF-8" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
+
+        <meta name="screen-orientation" content="portrait" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
+        />
+
+        <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+        <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
         <title>Verifikasi Liveness</title>
       </Head>
       <main className="">
@@ -320,13 +336,20 @@ export default function Home() {
           </div>
         )}
 
-        <div class="relative w-full max-w-[640px] h-auto">
-          <video ref={videoRef} autoPlay playsInline class="w-full h-auto" />
+        <div class="w-[400px] h-[564px]">
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            width={400}
+            height={564}
+            className="invisible"
+          />
           <canvas
             ref={canvasRef}
-            width={640}
-            height={480}
-            class="absolute top-0 left-0 w-full h-auto z-10"
+            width={400}
+            height={564}
+            class="absolute top-0 z-10"
           />
         </div>
       </main>
