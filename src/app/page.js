@@ -8,6 +8,7 @@ import * as drawingUtils from "@mediapipe/drawing_utils";
 const instructions = [
   { text: "Buka Mulut Anda", type: "mouth", duration: 2 }, // Duration set to 2 seconds
   { text: "Kedipkan Mata Anda", type: "blink", count: 0 },
+  { text: "Tersenyumlah", type: "smile", duration: 5 }, // Duration set to 2 seconds
 ];
 
 export default function Home() {
@@ -20,12 +21,18 @@ export default function Home() {
   const [currentInstructionIndex, setCurrentInstructionIndex] = useState(0);
   const [showAlert, setShowAlert] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
-  const [actionCounts, setActionCounts] = useState({ mouth: 0, blink: 0 });
+  const [actionCounts, setActionCounts] = useState({
+    mouth: 0,
+    blink: 0,
+    smile: 0,
+  });
   const [mouthOpenStartTime, setMouthOpenStartTime] = useState(null);
+  const [smileStartTime, setSmileStartTime] = useState(null);
 
   // Thresholds
   const EAR_THRESHOLD = 0.125;
   const MAR_THRESHOLD = 0.35;
+  const SMILE_THRESHOLD = 3.5; // You might need to adjust this threshold based on your needs
 
   useEffect(() => {
     generateRandomInstructions();
@@ -72,6 +79,7 @@ export default function Home() {
     if (landmarks && instructionList.length > 0) {
       const EAR = calculateEAR(landmarks);
       const MAR = calculateMAR(landmarks);
+      const smileFactor = calculateSmileFactor(landmarks);
 
       const currentInstruction = instructionList[currentInstructionIndex];
       let newActionCounts = { ...actionCounts };
@@ -109,6 +117,23 @@ export default function Home() {
             }, 500);
           }
           break;
+        case "smile":
+          const isSmiling = smileFactor > SMILE_THRESHOLD;
+          if (isSmiling) {
+            if (smileStartTime === null) {
+              setSmileStartTime(Date.now());
+            }
+
+            const elapsedTime = (Date.now() - smileStartTime) / 1000;
+
+            if (elapsedTime >= currentInstruction.duration) {
+              nextInstruction();
+              setSmileStartTime(null);
+            }
+          } else {
+            setSmileStartTime(null);
+          }
+          break;
         default:
           break;
       }
@@ -119,6 +144,7 @@ export default function Home() {
     currentInstructionIndex,
     actionCounts,
     mouthOpenStartTime,
+    smileStartTime,
   ]);
 
   useEffect(() => {
@@ -198,17 +224,19 @@ export default function Home() {
 
     setInstructionList(newInstructionList);
     setCurrentInstructionIndex(0);
-    setActionCounts({ mouth: 0, blink: 0 });
+    setActionCounts({ mouth: 0, blink: 0, smile: 0 });
     setShowAlert(true);
     setMouthOpenStartTime(null);
+    setSmileStartTime(null);
   };
 
   const nextInstruction = () => {
     if (currentInstructionIndex < instructionList.length - 1) {
       setCurrentInstructionIndex(currentInstructionIndex + 1);
-      setActionCounts({ mouth: 0, blink: 0 });
+      setActionCounts({ mouth: 0, blink: 0, smile: 0 });
       setShowAlert(true);
       setMouthOpenStartTime(null);
+      setSmileStartTime(null);
     } else {
       setIsVerified(true);
       setShowAlert(false);
@@ -238,6 +266,18 @@ export default function Home() {
     return (
       distance(upperLip, lowerLip) / distance(landmarks[33], landmarks[263])
     );
+  }
+
+  function calculateSmileFactor(landmarks) {
+    const mouthLeft = landmarks[61];
+    const mouthRight = landmarks[291];
+    const mouthTop = landmarks[0];
+    const mouthBottom = landmarks[17];
+
+    const mouthWidth = distance(mouthLeft, mouthRight);
+    const mouthHeight = distance(mouthTop, mouthBottom);
+
+    return mouthWidth / mouthHeight;
   }
 
   function distance(point1, point2) {
@@ -276,7 +316,7 @@ export default function Home() {
   return (
     <div className="w-screen h-dvh flex items-center justify-center relative">
       <Head>
-        <meta charset="UTF-8" />
+        <meta charSet="UTF-8" />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
@@ -333,7 +373,7 @@ export default function Home() {
           </div>
         )}
 
-        <div class="w-[400px] h-[576px]">
+        <div className="w-[400px] h-[576px]">
           <video
             ref={videoRef}
             autoPlay
@@ -346,7 +386,7 @@ export default function Home() {
             ref={canvasRef}
             width={400}
             height={576}
-            class="absolute top-0 z-10"
+            className="absolute top-0 z-10"
           />
         </div>
       </main>
