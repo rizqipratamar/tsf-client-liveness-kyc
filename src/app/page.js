@@ -31,7 +31,7 @@ export default function Home() {
 
   // Thresholds
   const EAR_THRESHOLD = 0.125;
-  const MAR_THRESHOLD = 0.35;
+  const MAR_THRESHOLD = 0.15;
   const SMILE_THRESHOLD = 3.5; // You might need to adjust this threshold based on your needs
 
   useEffect(() => {
