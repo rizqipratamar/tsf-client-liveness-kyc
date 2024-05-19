@@ -23,9 +23,9 @@ export default function Home() {
   const [isVerified, setIsVerified] = useState(false);
   const [actionCounts, setActionCounts] = useState({ mouth: 0, blink: 0 });
   const [mouthOpenStartTime, setMouthOpenStartTime] = useState(null);
-  const router = useRouter();
+
   // Thresholds
-  const EAR_THRESHOLD = 0.25;
+  const EAR_THRESHOLD = 0.2;
   const MAR_THRESHOLD = 0.5;
 
   useEffect(() => {
@@ -273,7 +273,7 @@ export default function Home() {
   }
 
   const handleReset = () => {
-    router.reload();
+    window.location.reload();
   };
 
   return (
