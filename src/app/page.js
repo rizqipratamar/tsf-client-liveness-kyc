@@ -191,7 +191,7 @@ export default function Home() {
       if (instruction.type === "blink") {
         return {
           ...instruction,
-          count: getRandomInt(2, 5),
+          count: getRandomInt(3, 5),
         };
       } else {
         return instruction;
@@ -305,7 +305,7 @@ export default function Home() {
         {!modelLoaded && (
           <div
             role="alert"
-            className="absolute flex justify-center text-center top-0 z-50 w-[380px] left-1/2 -translate-x-1/2 alert alert-info"
+            className="absolute flex justify-center text-center top-10 z-50 w-[380px] left-1/2 -translate-x-1/2 alert alert-info"
           >
             <span className="text-center">Model sedang dimuat...</span>
           </div>
@@ -314,7 +314,7 @@ export default function Home() {
         {modelLoaded && showAlert && (
           <div
             role="alert"
-            className="absolute animate-pulse flex justify-center text-center top-0 z-50 w-[380px] left-1/2 -translate-x-1/2 alert alert-warning"
+            className="absolute animate-pulse flex justify-center text-center top-10 z-50 w-[380px] left-1/2 -translate-x-1/2 alert alert-warning"
           >
             <span className="text-center">
               {instructionList[currentInstructionIndex].text}
@@ -327,7 +327,7 @@ export default function Home() {
         {isVerified && (
           <div
             role="alert"
-            className="absolute flex justify-center text-center top-0 z-50 w-[380px] left-1/2 -translate-x-1/2 alert alert-success"
+            className="absolute flex justify-center text-center top-10 z-50 w-[380px] left-1/2 -translate-x-1/2 alert alert-success"
           >
             <span>Verifikasi Berhasil!</span>
             <button className="btn btn-sm btn-gray ml-2" onClick={handleReset}>
@@ -336,20 +336,20 @@ export default function Home() {
           </div>
         )}
 
-        <div class="w-[400px] h-[564px]">
+        <div class="w-[400px] h-[564px] ">
           <video
             ref={videoRef}
             autoPlay
             playsInline
             width={400}
             height={564}
-            className="invisible"
+            className="invisible absolute top-10 "
           />
           <canvas
             ref={canvasRef}
             width={400}
             height={564}
-            class="absolute top-0 z-10"
+            className="absolute top-10 z-10"
           />
         </div>
       </main>
