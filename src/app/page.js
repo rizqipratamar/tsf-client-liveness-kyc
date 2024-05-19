@@ -148,37 +148,37 @@ export default function Home() {
         canvasCtx,
         landmarks,
         facemesh.FACEMESH_RIGHT_EYE,
-        { color: "#FF3030", lineWidth: 1 }
+        { color: "#FF3030", lineWidth: 5 }
       );
       drawingUtils.drawConnectors(
         canvasCtx,
         landmarks,
         facemesh.FACEMESH_RIGHT_EYEBROW,
-        { color: "#FF3030", lineWidth: 1 }
+        { color: "#FF3030", lineWidth: 5 }
       );
       drawingUtils.drawConnectors(
         canvasCtx,
         landmarks,
         facemesh.FACEMESH_LEFT_EYE,
-        { color: "#30FF30", lineWidth: 1 }
+        { color: "#30FF30", lineWidth: 5 }
       );
       drawingUtils.drawConnectors(
         canvasCtx,
         landmarks,
         facemesh.FACEMESH_LEFT_EYEBROW,
-        { color: "#30FF30", lineWidth: 1 }
+        { color: "#30FF30", lineWidth: 5 }
       );
       drawingUtils.drawConnectors(
         canvasCtx,
         landmarks,
         facemesh.FACEMESH_FACE_OVAL,
-        { color: "#E0E0E0", lineWidth: 1 }
+        { color: "#E0E0E0", lineWidth: 5 }
       );
       drawingUtils.drawConnectors(
         canvasCtx,
         landmarks,
         facemesh.FACEMESH_LIPS,
-        { color: "#E0E0E0", lineWidth: 1 }
+        { color: "#E0E0E0", lineWidth: 5 }
       );
 
       canvasCtx.restore();
@@ -281,7 +281,7 @@ export default function Home() {
       <Head>
         <title>Verifikasi Liveness</title>
       </Head>
-      <main className="">
+      <main className="flex justify-center">
         {isLoading && (
           <span className="loading loading-bars loading-lg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></span>
         )}
@@ -322,14 +322,18 @@ export default function Home() {
 
         <video
           ref={videoRef}
+          width={640}
+          height={480}
           autoPlay
           playsInline
-          className="w-full h-dvh object-cover"
+          className="max-w-full h-[480px] object-contain"
         />
         <canvas
           ref={canvasRef}
+          width={640}
+          height={480}
           style={{ position: "absolute", top: 0 }}
-          className="w-full h-dvh object-cover"
+          className="max-w-full h-[480px] object-contain"
         />
       </main>
     </div>
